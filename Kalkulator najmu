@@ -108,6 +108,11 @@ button:hover {
       <option value="Audi Q3">Audi Q3</option>
       <option value="Audi A4">Audi A4</option>
       <option value="Audi Q5">Audi Q5</option>
+      <option value="Renault Clio">Renault Clio</option>
+      <option value="Opel Corsa">Opel Corsa</option>
+      <option value="Toyota Yaris">Toyota Yaris</option>
+      <option value="Hyundai i30 Kombi">Hyundai i30 Kombi</option>
+      <option value="Opel Astra Kombi">Opel Astra Kombi</option>
       <!-- Tutaj będą dodane kolejne pojazdy -->
     </select>
     <input type="range" id="days1" class="slider" min="1" max="30" value="1">
@@ -129,6 +134,11 @@ button:hover {
       <option value="Audi Q3">Audi Q3</option>
       <option value="Audi A4">Audi A4</option>
       <option value="Audi Q5">Audi Q5</option>
+      <option value="Renault Clio">Renault Clio</option>
+      <option value="Opel Corsa">Opel Corsa</option>
+      <option value="Toyota Yaris">Toyota Yaris</option>
+      <option value="Hyundai i30 Kombi">Hyundai i30 Kombi</option>
+      <option value="Opel Astra Kombi">Opel Astra Kombi</option>
     </select>
     <input type="range" id="days2" class="slider" min="1" max="30" value="1">
     <div class="slider-value" id="days2Value">1 dzień</div>
@@ -151,7 +161,12 @@ var vehicles = {
   'Audi Q3': [389, 370, 331, 272, 233, 196, 196, 175, 175, 175, 175, 175, 175, 175, 136, 136, 136, 136, 136, 136, 136, 117, 117, 117, 117, 117, 117, 117, 117, 117, 117],
   'Audi A4': [439, 417, 373, 307, 263, 221, 221, 198, 198, 198, 198, 198, 198, 198, 154, 154, 154, 154, 154, 154, 154, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132],
   'Audi Q5': [509, 484, 458, 382, 331, 280, 255, 229, 229, 229, 229, 229, 229, 229, 178, 178, 178, 178, 178, 178, 178, 153, 153, 153, 153, 153, 153, 153, 153, 153, 153], 
-  'Renault Clio': [
+  'Renault Clio': [99, 99, 99, 99, 79, 79, 79, 79, 79, 75, 75, 75, 75, 75, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73],
+  'Opel Corsa': [99, 99, 99, 99, 79, 79, 79, 79, 79, 75, 75, 75, 75, 75, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73, 73],
+  'Toyota Yaris': [109, 109, 109, 109, 89, 89, 89, 89, 89, 85, 85, 85, 85, 85, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83, 83],
+  'Hyundai i30 Kombi': [129, 129, 129, 129, 119, 119, 119, 119, 119, 109, 109, 109, 109, 109, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99, 99],
+  'Opel Astra Kombi': [139, 139, 139, 139, 129, 129, 129, 129, 129, 119, 119, 119, 119, 119, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109, 109],
+
   // Dodaj więcej pojazdów i ich ceny tutaj
 };
 
