@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulator najmu samochodu</title>
+<style>
+#rentalCalculator {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff;
+  max-width: 480px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+}
+
+.vehicle-selection select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 10px;
+  margin-top: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #00568D;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #00568D;
+  cursor: pointer;
+}
+
+button {
+  background-color: #00568D;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #004070;
+}
+
+.results, .slider-value {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+}
+
+.results {
+  display: none;
+}
+
+.results div:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.price {
+  color: #00568D;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<div id="rentalCalculator">
+  <div class="vehicle-selection">
+    <select id="vehicle1">
+      <option value="" selected disabled>Wybierz pojazd</option>
+      <option value="Audi A3 Sportback">Audi A3 Sportback</option>
+      <option value="Audi Q2">Audi Q2</option>
+      <option value="Audi A3 2023 30 Tfsi">Audi A3 2023 30 Tfsi</option>
+      <option value="Audi A3 2023 35 Tfsi">Audi A3 2023 35 Tfsi</option>
+      <option value="Audi A3 Limousine 35 Tfsi">Audi A3 Limousine 35 Tfsi</option>
+      <option value="Audi Q3">Audi Q3</option>
+      <option value="Audi A4">Audi A4</option>
+      <option value="Audi Q5">Audi Q5</option>
+      <!-- Tutaj będą dodane kolejne pojazdy -->
+    </select>
+    <input type="range" id="days1" class="slider" min="1" max="30" value="1">
+    <div class="slider-value" id="days1Value">1 dzień</div>
+  </div>
+
+  <button onclick="calculateResults()">Oblicz</button>
+
+  <button id="comparisonButton" onclick="toggleComparison()">Dodaj porównanie</button>
+  
+  <div class="vehicle-selection" id="comparisonSection" style="display: none;">
+    <select id="vehicle2">
+      <option value="" selected disabled>Wybierz pojazd do porównania</option>
+      <option value="Audi A3 Sportback">Audi A3 Sportback</option>
+      <option value="Audi Q2">Audi Q2</option>
+      <option value="Audi A3 2023 30 Tfsi">Audi A3 2023 30 Tfsi</option>
+      <option value="Audi A3 2023 35 Tfsi">Audi A3 2023 35 Tfsi</option>
+      <option value="Audi A3 Limousine 35 Tfsi">Audi A3 Limousine 35 Tfsi</option>
+      <option value="Audi Q3">Audi Q3</option>
+      <option value="Audi A4">Audi A4</option>
+      <option value="Audi Q5">Audi Q5</option>
+    </select>
+    <input type="range" id="days2" class="slider" min="1" max="30" value="1">
+    <div class="slider-value" id="days2Value">1 dzień</div>
+  </div>
+
+  <div class="results" id="results">
+    <div id="cost1">Koszt najmu: -- zł</div>
+    <div id="cost2">Koszt najmu porównywanego pojazdu: -- zł</div>
+    <div id="costDifference">Różnica w kosztach: -- zł</div>
+  </div>
+</div>
+
+<script>
+var vehicles = {
+  'Audi A3 Sportback': [197, 172, 156, 134, 123, 107, 107, 104, 102, 99, 99, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 74, 74],
+  'Audi Q2': [239, 209, 189, 162, 149, 130, 130, 126, 124, 120, 120, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 90, 90],
+  'Audi A3 2023 30 Tfsi': [279, 244, 221, 189, 174, 152, 152, 147, 145, 140, 140, 117, 117, 117, 117, 117, 117, 117, 117, 117, 117, 117, 117, 117, 117, 117, 117, 117, 117, 105, 105],
+  'Audi A3 2023 35 Tfsi': [309, 270, 244, 210, 193, 168, 168, 163, 160, 155, 155, 129, 129, 129, 129, 129, 129, 129, 129, 129, 129, 129, 129, 129, 129, 129, 129, 129, 129, 116, 116],
+  'Audi A3 Limousine 35 Tfsi': [329, 288, 260, 223, 206, 179, 179, 173, 171, 165, 165, 138, 138, 138, 138, 138, 138, 138, 138, 138, 138, 138, 138, 138, 138, 138, 138, 138, 138, 124, 124],
+  'Audi Q3': [389, 370, 331, 272, 233, 196, 196, 175, 175, 175, 175, 175, 175, 175, 136, 136, 136, 136, 136, 136, 136, 117, 117, 117, 117, 117, 117, 117, 117, 117, 117],
+  'Audi A4': [439, 417, 373, 307, 263, 221, 221, 198, 198, 198, 198, 198, 198, 198, 154, 154, 154, 154, 154, 154, 154, 132, 132, 132, 132, 132, 132, 132, 132, 132, 132],
+  'Audi Q5': [509, 484, 458, 382, 331, 280, 255, 229, 229, 229, 229, 229, 229, 229, 178, 178, 178, 178, 178, 178, 178, 153, 153, 153, 153, 153, 153, 153, 153, 153, 153], 
+  'Renault Clio': [
+  // Dodaj więcej pojazdów i ich ceny tutaj
+};
+
+
+function calculateCost(vehicle, days) {
+  if (!vehicle || !days) {
+    return 0;
+  }
+  var prices = vehicles[vehicle];
+  var totalCost = 0;
+  for (var i = 0; i < days; i++) {
+    totalCost += (prices[i] || prices[prices.length - 1]);
+  }
+  return totalCost;
+}
+
+function calculateResults() {
+  var vehicle1 = document.getElementById('vehicle1').value;
+  var days1 = document.getElementById('days1').value;
+  var cost1 = calculateCost(vehicle1, days1);
+  document.getElementById('cost1').innerHTML = `Koszt najmu <strong>${vehicle1}</strong> na <strong>${days1}</strong> dni wynosi: <span class="price">${cost1.toFixed(2)} zł</span>`;
+
+  var comparisonSection = document.getElementById('comparisonSection');
+  var resultsSection = document.getElementById('results');
+  if (comparisonSection.style.display !== 'none') {
+    var vehicle2 = document.getElementById('vehicle2').value;
+    var days2 = document.getElementById('days2').value;
+    var cost2 = calculateCost(vehicle2, days2);
+    document.getElementById('cost2').innerHTML = `Koszt najmu <strong>${vehicle2}</strong> na <strong>${days2}</strong> dni wynosi: <span class="price">${cost2.toFixed(2)} zł</span>`;
+
+    var costDifference = Math.abs(cost1 - cost2);
+    document.getElementById('costDifference').textContent = `Różnica w kosztach: ${costDifference.toFixed(2)} zł`;
+  } else {
+    document.getElementById('cost2').textContent = '';
+    document.getElementById('costDifference').textContent = '';
+  }
+
+  resultsSection.style.display = 'block';
+}
+
+function toggleComparison() {
+  var comparisonSection = document.getElementById('comparisonSection');
+  var comparisonButton = document.getElementById('comparisonButton');
+  var resultsSection = document.getElementById('results');
+
+  if (comparisonSection.style.display === 'none') {
+    comparisonSection.style.display = 'block';
+    comparisonButton.textContent = 'Usuń porównanie';
+  } else {
+    comparisonSection.style.display = 'none';
+    comparisonButton.textContent = 'Dodaj porównanie';
+    document.getElementById('vehicle2').value = '';
+    document.getElementById('days2').value = '';
+    resultsSection.style.display = 'none'; // Hide results when toggling comparison
+  }
+}
+
+document.getElementById('days1').oninput = function() {
+  document.getElementById('days1Value').textContent = this.value + ' dni';
+};
+
+document.getElementById('days2').oninput = function() {
+  document.getElementById('days2Value').textContent = this.value + ' dni';
+};
+</script>
+
+</body>
+</html>
