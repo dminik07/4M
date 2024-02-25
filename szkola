@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Wyniki Operacji</title>
+</head>
+<body>
+    <!-- Tutaj mogą pojawić się inne elementy HTML związane z pierwszym zadaniem -->
+
+    <h2>Wyniki operacji matematycznych:</h2>
+    <div id="wyniki"></div>
+
+    <script>
+        // Zmienne z pierwszego zadania w komentarzach, aby nie kolidowały z dalszym kodem
+        // const imie = 'Dominik';             // Imię
+        // const nazwisko = 'Kowalczyk';       // Nazwisko
+        // let wiek = 24;                      // Wiek
+        // const ulubionyKolor = 'fiolet';     // Ulubiony kolor
+        // const miastoUrodzenia = 'Mińsk Mazowiecki'; // Miasto urodzenia
+
+        // Zmienne i operacje matematyczne z drugiego zadania
+        let a = 8;
+        let b = 11;
+        let suma = a + b;
+        let roznica = a - b;
+        let iloczyn = a * b;
+        let iloraz = a / b;
+        let reszta = a % b;
+        let pierwiastekA = Math.sqrt(a);
+        let pierwiastekB = Math.sqrt(b);
+
+        // Funkcja do wyświetlania wyników
+        function wyswietlWynik(opis, wartosc) {
+            let node = document.createElement("p");
+            let textnode = document.createTextNode(opis + wartosc);
+            node.appendChild(textnode);
+            document.getElementById("wyniki").appendChild(node);
+
+            // Wyświetlanie wyniku również w konsoli
+            console.log(opis + wartosc);
+        }
+
+        // Wyświetlanie wyników
+        wyswietlWynik('Suma: ', suma);
+        wyswietlWynik('Różnica: ', roznica);
+        wyswietlWynik('Iloczyn: ', iloczyn);
+        wyswietlWynik('Iloraz: ', iloraz);
+        wyswietlWynik('Reszta: ', reszta);
+        wyswietlWynik('Pierwiastek kwadratowy z a: ', pierwiastekA);
+        wyswietlWynik('Pierwiastek kwadratowy z b: ', pierwiastekB);
+    </script>
+</body>
+</html>
