@@ -5,22 +5,25 @@
     <title>Wyniki Operacji</title>
 </head>
 <body>
-    <!-- Tutaj mogą pojawić się inne elementy HTML związane z pierwszym zadaniem -->
-
-    <h2>Wyniki operacji matematycznych:</h2>
-    <div id="wyniki"></div>
-
+    <!-- Zadanie 1: Deklaracja zmiennych (zmienne znajdują się w komentarzach) -->
     <script>
-        // Zmienne z pierwszego zadania w komentarzach, aby nie kolidowały z dalszym kodem
+        /* Zadanie 1: Zmienne (zakomentowane, aby nie kolidowały z zadaniem 2) */
         // const imie = 'Dominik';             // Imię
         // const nazwisko = 'Kowalczyk';       // Nazwisko
         // let wiek = 24;                      // Wiek
         // const ulubionyKolor = 'fiolet';     // Ulubiony kolor
         // const miastoUrodzenia = 'Mińsk Mazowiecki'; // Miasto urodzenia
+    </script>
 
-        // Zmienne i operacje matematyczne z drugiego zadania
+    <!-- Zadanie 2: Operacje matematyczne i wyświetlanie wyników -->
+    <h2>Wyniki operacji matematycznych z Zadania 2:</h2>
+    <div id="wyniki-zadanie2"></div>
+    <script>
+        /* Zadanie 2: Operacje matematyczne */
         let a = 8;
         let b = 11;
+
+        // Wykonywanie operacji
         let suma = a + b;
         let roznica = a - b;
         let iloczyn = a * b;
@@ -29,18 +32,18 @@
         let pierwiastekA = Math.sqrt(a);
         let pierwiastekB = Math.sqrt(b);
 
-        // Funkcja do wyświetlania wyników
+        // Funkcja do wyświetlania wyników operacji
         function wyswietlWynik(opis, wartosc) {
             let node = document.createElement("p");
             let textnode = document.createTextNode(opis + wartosc);
             node.appendChild(textnode);
-            document.getElementById("wyniki").appendChild(node);
+            document.getElementById("wyniki-zadanie2").appendChild(node);
 
             // Wyświetlanie wyniku również w konsoli
             console.log(opis + wartosc);
         }
 
-        // Wyświetlanie wyników
+        // Wyświetlanie wyników operacji matematycznych
         wyswietlWynik('Suma: ', suma);
         wyswietlWynik('Różnica: ', roznica);
         wyswietlWynik('Iloczyn: ', iloczyn);
